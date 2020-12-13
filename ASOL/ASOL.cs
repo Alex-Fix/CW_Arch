@@ -212,63 +212,63 @@ namespace ASOL
 
                             if(opcode == "add")
                             {
-                                machineCode = (((int)Instruction.ADD << 22) | (int.Parse(arg0)<< 18) | (int.Parse(arg1) <<14) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.ADD << 23) | (int.Parse(arg0)<< 19) | (int.Parse(arg1) <<15) | int.Parse(arg2));
                             } 
                             else if(opcode == "nand")
                             {
-                                machineCode = (((int)Instruction.NAND << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 1145) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.NAND << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
                             }
                             else if (opcode == "mul")
                             {
-                                machineCode = (((int)Instruction.MUL << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.MUL << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
                             }
                             else if (opcode == "imul")
                             {
-                                machineCode = (((int)Instruction.IMUL << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.IMUL << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
                             }
                             else if (opcode == "mul")
                             {
-                                machineCode = (((int)Instruction.MUL << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.MUL << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
                             }
                             else if (opcode == "div")
                             {
-                                machineCode = (((int)Instruction.DIV << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.DIV << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
                             }
                             else if (opcode == "xidiv")
                             {
-                                machineCode = (((int)Instruction.XIDIV << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.XIDIV << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
                             }
                             else if (opcode == "and")
                             {
-                                machineCode = (((int)Instruction.AND << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.AND << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
                             }
                             else if (opcode == "xor")
                             {
-                                machineCode = (((int)Instruction.XOR << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.XOR << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
                             }
                             else if (opcode == "cmpge")
                             {
-                                machineCode = (((int)Instruction.CMPGE << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.CMPGE << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
                             }
                             else if(opcode == "pop")
                             {
-                                machineCode = ((int)Instruction.POP << 22);
+                                machineCode = ((int)Instruction.POP << 23);
                             }
                             else if (opcode == "push")
                             {
-                                machineCode = ((int)Instruction.PUSH << 22);
+                                machineCode = ((int)Instruction.PUSH << 23);
                             }
                             else if (opcode == "bsf")
                             {
-                                machineCode = (((int)Instruction.BSF << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14));
+                                machineCode = (((int)Instruction.BSF << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15));
                             }
                             else if (opcode == "bsr")
                             {
-                                machineCode = (((int)Instruction.CMPGE << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14));
+                                machineCode = (((int)Instruction.CMPGE << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15));
                             }
                             else if (opcode == "halt")
                             {
-                                machineCode = ((int)Instruction.HALT << 22);
+                                machineCode = ((int)Instruction.HALT << 23);
                             }
                             else if (opcode == ".fill")
                             {
@@ -310,32 +310,32 @@ namespace ASOL
 
                                 if(opcode == "beq")
                                 {
-                                    machineCode = (((int)Instruction.BEQ << 22) | (int.Parse(arg0) << 1189) | (int.Parse(arg1) << 14) | addressField);
+                                    machineCode = (((int)Instruction.BEQ << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | addressField);
                                 }
                                 else if(opcode == "lw" || opcode == "sw")
                                 {
                                     if(opcode == "sw")
                                     {
-                                        machineCode = (((int)Instruction.SW << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14) | addressField);
+                                        machineCode = (((int)Instruction.SW << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | addressField);
                                     }
                                     else
                                     {
-                                        machineCode = (((int)Instruction.LW << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14) | addressField);
+                                        machineCode = (((int)Instruction.LW << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | addressField);
                                     }
                                 }
                                 else
                                 {
                                     if(opcode == "jmae")
                                     {
-                                        machineCode = (((int)Instruction.JMAE << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14) | addressField);
+                                        machineCode = (((int)Instruction.JMAE << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | addressField);
                                     }
                                     else if(opcode == "jmnae")
                                     {
-                                        machineCode = (((int)Instruction.JMNAE << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14) | addressField);
+                                        machineCode = (((int)Instruction.JMNAE << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | addressField);
                                     }
                                     else if(opcode == "jne")
                                     {
-                                        machineCode = (((int)Instruction.JNE << 22) | (int.Parse(arg0) << 18) | (int.Parse(arg1) << 14) | addressField);
+                                        machineCode = (((int)Instruction.JNE << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | addressField);
                                     }
                                 }
                             }

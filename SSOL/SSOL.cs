@@ -98,6 +98,7 @@ namespace SSOL
                 {
                     //print memory before all
                     PrintMemory(output);
+                    PrintState(output);
 
                     for(; ; CoutOfInstructions++)
                     {
@@ -108,8 +109,8 @@ namespace SSOL
                             break;
                         }
 
-                        var arg0 = (Memory[PC] >> 18) & 15;
-                        var arg1 = (Memory[PC] >> 14) & 15;
+                        var arg0 = (Memory[PC] >> 19) & 15;
+                        var arg1 = (Memory[PC] >> 15) & 15;
                         var arg2 = Memory[PC] & 15;
                         var offset = 0; 
                         if((Memory[PC] & 0x4000) == 0x4000)
@@ -140,7 +141,7 @@ namespace SSOL
                                 PC++;
                                 break;
                             case Instruction.BEQ:
-                                PC = Registers[arg0] == Registers[arg1] ? PC + offset : PC + 1;
+                                PC = Registers[arg0] == Registers[arg1] ? PC + offset + 1: PC + 1;
                                 break;
                             case Instruction.JARL:
                                 if (Registers[arg0] == Registers[arg1])
@@ -188,10 +189,10 @@ namespace SSOL
                                 PC++;
                                 break;
                             case Instruction.JMAE:
-                                PC = Registers[arg0] >= Registers[arg1] ? PC + offset : PC + 1;
+                                PC = Registers[arg0] >= Registers[arg1] ? PC + offset + 1 : PC + 1;
                                 break;
                             case Instruction.JMNAE:
-                                PC = Registers[arg0] < Registers[arg1] ? PC + offset : PC + 1;
+                                PC = Registers[arg0] < Registers[arg1] ? PC + offset + 1: PC + 1;
                                 break;
                             case Instruction.BSR:
                                 {
@@ -229,7 +230,7 @@ namespace SSOL
                                 PC++;
                                 break;
                             case Instruction.JNE:
-                                PC = ZeroFlag ? PC + offset : PC + 1;
+                                PC = ZeroFlag ? PC + offset + 1 : PC + 1;
                                 break;
                             case Instruction.POP:
                                 Registers[1] = Stack.Pop();

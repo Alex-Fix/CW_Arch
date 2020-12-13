@@ -30,8 +30,6 @@ namespace ASOL
                 
             ASOL.Assembly(args[0], args[1]);
 
-
-            Console.ReadLine();
         }
     }
 }
