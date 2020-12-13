@@ -367,11 +367,11 @@ namespace ASOL
 
             if (!isRight)
             {
-                Errors.Add($"Line{address}. Incorect arg");
+                Errors.Add($"Line: {address}. Incorect arg");
             }
             if(argNum < 0 || argNum >= RegNumbers)
             {
-                Errors.Add($"Line{address}. Register out of range");
+                Errors.Add($"Line: {address}. Register out of range");
             }
         }
 
