@@ -309,7 +309,7 @@ namespace ASOL
                                     }
                                     else if(opcode == "jne")
                                     {
-                                        machineCode = (((int)Instruction.JNE << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | addressField);
+                                        machineCode = (((int)Instruction.JNE << 23) | addressField);
                                     }
                                 }
                             }
