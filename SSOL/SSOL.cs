@@ -248,10 +248,14 @@ namespace SSOL
                                 PC = ZeroFlag ? PC + offset + 1 : PC + 1;
                                 break;
                             case Instruction.POP:
+                                if (Stack.Count() == 0)
+                                    throw new Exception();
                                 Registers[1] = Stack.Pop();
                                 PC++;
                                 break;
                             case Instruction.PUSH:
+                                if (Stack.Count() == 32)
+                                    throw new Exception();
                                 Stack.Push(Registers[1]);
                                 PC++;
                                 break;
