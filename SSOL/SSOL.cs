@@ -280,6 +280,7 @@ namespace SSOL
             text += $"\tstack:\n";
             for (var i = 0; i < Stack.Count(); i++)
                 text += $"\t\tst[ {i} ] {Stack.ElementAt(i)}\n";
+            text += $"\tzero flag: {ZeroFlag}\n";
             text += "end state";
             if (isHalt)
             {
