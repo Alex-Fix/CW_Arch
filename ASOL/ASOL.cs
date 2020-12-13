@@ -263,7 +263,7 @@ namespace ASOL
                             {
                                 if(arg2.All(el => char.IsLetter(el)))
                                 {
-                                    addressField = translateSymbol(labelsNameList, labelsAddressList, numLabels, arg2);
+                                    addressField = translateSymbol(labelsNameList, labelsAddressList, numLabels, opcode == "jne" ? arg0 : arg2);
                                     if(opcode == "beq" || opcode == "jmae" || opcode == "jmnae" || opcode == "jne")
                                     {
                                         addressField = addressField - address - 1;
