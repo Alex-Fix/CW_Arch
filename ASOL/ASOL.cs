@@ -264,7 +264,7 @@ namespace ASOL
                             }
                             else if (opcode == "bsr")
                             {
-                                machineCode = (((int)Instruction.CMPGE << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15));
+                                machineCode = (((int)Instruction.BSR << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15));
                             }
                             else if (opcode == "halt")
                             {
