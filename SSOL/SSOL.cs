@@ -156,13 +156,19 @@ namespace SSOL
                                 }
                                 break;
                             case Instruction.MUL:
-                                Registers[arg2] = Registers[arg0] * Registers[arg1];
+                                {
+                                    Int64 temp1 = Registers[arg0] & 0xFFFFFFFF;
+                                    Int64 temp2 = Registers[arg1] & 0xFFFFFFFF;
+                                    Registers[arg2] = (int)(temp1 * temp2);
+                                }
                                 PC++;
                                 break;
                             case Instruction.DIV:
-                                Int64 temp1 = Registers[arg0] & 0xFFFFFFFF;
-                                Int64 temp2 = Registers[arg1] & 0xFFFFFFFF;
-                                Registers[arg2] = (int)(temp1 / temp2);
+                                {
+                                    Int64 temp1 = Registers[arg0] & 0xFFFFFFFF;
+                                    Int64 temp2 = Registers[arg1] & 0xFFFFFFFF;
+                                    Registers[arg2] = (int)(temp1 / temp2);
+                                }
                                 PC++;
                                 break;
                             case Instruction.IMUL:
