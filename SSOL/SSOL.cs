@@ -240,6 +240,7 @@ namespace SSOL
                                             break;
                                         }
                                     }
+                                    Registers[arg1] = index;
                                 }
                                 PC++;
                                 break;
