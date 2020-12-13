@@ -77,8 +77,6 @@ namespace ASOL
                 var arg1 = "";
                 var arg2 = "";
 
-                int stackCapacity = 0;
-
                 using (var stream = new StreamReader(inputPath))
                 {
                     while (!stream.EndOfStream)
@@ -125,30 +123,6 @@ namespace ASOL
                         if(opcode == ".fill" || opcode == "jne")
                         {
                             testAddrArg(arg0, address);
-                        }
-
-                        if(opcode == "pop")
-                        {
-                            if(stackCapacity == 0)
-                            {
-                                Errors.Add($"Line: {address}. Stack capacity = 0");
-                            }
-                            else
-                            {
-                                stackCapacity--;
-                            }
-                        }
-
-                        if(opcode == "push")
-                        {
-                            if(stackCapacity == StackCapacity)
-                            {
-                                Errors.Add($"Line: {address}. Stack capacity = 32");
-                            }
-                            else
-                            {
-                                stackCapacity++;
-                            }
                         }
 
                         // check for enough arguments
