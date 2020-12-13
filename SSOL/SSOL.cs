@@ -203,6 +203,10 @@ namespace SSOL
                             case Instruction.BSR:
                                 {
                                     var str = Convert.ToString(Registers[arg0], 2);
+                                    var substr = "";
+                                    for (int i = 0; i < 32 - str.Length; i++)
+                                        substr += "0";
+                                    str = substr + str;
                                     var index = -1;
                                     ZeroFlag = false;
                                     for (int i = 0; i < str.Length; i++)
@@ -221,13 +225,17 @@ namespace SSOL
                             case Instruction.BSF:
                                 {
                                     var str = Convert.ToString(Registers[arg0], 2);
+                                    var substr = "";
+                                    for (int i = 0; i < 32 - str.Length; i++)
+                                        substr += "0";
+                                    str = substr + str;
                                     var index = -1;
                                     ZeroFlag = false;
                                     for (int i = str.Length - 1; i >= 0; i--)
                                     {
                                         if (str[i] == '1')
                                         {
-                                            index = i;
+                                            index = 31 - i;
                                             ZeroFlag = true;
                                             break;
                                         }
