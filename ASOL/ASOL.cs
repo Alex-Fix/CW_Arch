@@ -36,6 +36,17 @@ namespace ASOL
 
 
         /// <summary>
+        /// min offset
+        /// </summary>
+        public static int MinOffset { get; } = -32768;
+
+        /// <summary>
+        /// max offset
+        /// </summary>
+        public static int MaxOffset { get; } = 32767;
+
+
+        /// <summary>
         /// available instructions
         /// </summary>
         public enum Instruction
@@ -172,7 +183,7 @@ namespace ASOL
                 // print machine code
 
                 int numLabels = 0;
-                int addressField = 0;
+                int offset = 0;
                 address = 0;
                 string outputResult = "";
                 using(var input = new StreamReader(inputPath))
@@ -186,63 +197,63 @@ namespace ASOL
 
                             if(opcode == "add")
                             {
-                                machineCode = (((int)Instruction.ADD << 23) | (int.Parse(arg0)<< 19) | (int.Parse(arg1) <<15) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.ADD << 24) | (int.Parse(arg0)<< 20) | (int.Parse(arg1) <<16) | int.Parse(arg2));
                             } 
                             else if(opcode == "nand")
                             {
-                                machineCode = (((int)Instruction.NAND << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.NAND << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | int.Parse(arg2));
                             }
                             else if (opcode == "mul")
                             {
-                                machineCode = (((int)Instruction.MUL << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.MUL << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | int.Parse(arg2));
                             }
                             else if (opcode == "imul")
                             {
-                                machineCode = (((int)Instruction.IMUL << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.IMUL << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | int.Parse(arg2));
                             }
                             else if (opcode == "mul")
                             {
-                                machineCode = (((int)Instruction.MUL << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.MUL << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | int.Parse(arg2));
                             }
                             else if (opcode == "div")
                             {
-                                machineCode = (((int)Instruction.DIV << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.DIV << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | int.Parse(arg2));
                             }
                             else if (opcode == "xidiv")
                             {
-                                machineCode = (((int)Instruction.XIDIV << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.XIDIV << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | int.Parse(arg2));
                             }
                             else if (opcode == "and")
                             {
-                                machineCode = (((int)Instruction.AND << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.AND << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | int.Parse(arg2));
                             }
                             else if (opcode == "xor")
                             {
-                                machineCode = (((int)Instruction.XOR << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.XOR << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | int.Parse(arg2));
                             }
                             else if (opcode == "cmpge")
                             {
-                                machineCode = (((int)Instruction.CMPGE << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | int.Parse(arg2));
+                                machineCode = (((int)Instruction.CMPGE << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | int.Parse(arg2));
                             }
                             else if(opcode == "pop")
                             {
-                                machineCode = ((int)Instruction.POP << 23);
+                                machineCode = ((int)Instruction.POP << 24);
                             }
                             else if (opcode == "push")
                             {
-                                machineCode = ((int)Instruction.PUSH << 23);
+                                machineCode = ((int)Instruction.PUSH << 24);
                             }
                             else if (opcode == "bsf")
                             {
-                                machineCode = (((int)Instruction.BSF << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15));
+                                machineCode = (((int)Instruction.BSF << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16));
                             }
                             else if (opcode == "bsr")
                             {
-                                machineCode = (((int)Instruction.BSR << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15));
+                                machineCode = (((int)Instruction.BSR << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16));
                             }
                             else if (opcode == "halt")
                             {
-                                machineCode = ((int)Instruction.HALT << 23);
+                                machineCode = ((int)Instruction.HALT << 24);
                             }
                             else if (opcode == ".fill")
                             {
@@ -263,53 +274,53 @@ namespace ASOL
                             {
                                 if(arg2.All(el => char.IsLetter(el)))
                                 {
-                                    addressField = translateSymbol(labelsNameList, labelsAddressList, numLabels, opcode == "jne" ? arg0 : arg2);
+                                    offset = translateSymbol(labelsNameList, labelsAddressList, numLabels, opcode == "jne" ? arg0 : arg2);
                                     if(opcode == "beq" || opcode == "jmae" || opcode == "jmnae" || opcode == "jne")
                                     {
-                                        addressField = addressField - address - 1;
+                                        offset = offset - address - 1;
                                     }
                                 }
                                 else
                                 {
-                                    addressField = int.Parse(arg2);
+                                    offset = int.Parse(arg2);
                                 }
 
-                                if(address + addressField > MaxCountOfLabels || address + addressField < 0)
+                                if(offset > MaxOffset || offset < MinOffset)
                                 {
-                                    Errors.Add($"offset {addressField} out of range");
+                                    Errors.Add($"offset {offset} out of range");
                                 }
 
                                 // max length of offset must be less then 15 bits
-                                addressField = addressField & 0x7FFF;
+                                offset = offset & 0x7FFF;
 
                                 if(opcode == "beq")
                                 {
-                                    machineCode = (((int)Instruction.BEQ << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | addressField);
+                                    machineCode = (((int)Instruction.BEQ << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | offset);
                                 }
                                 else if(opcode == "lw" || opcode == "sw")
                                 {
                                     if(opcode == "sw")
                                     {
-                                        machineCode = (((int)Instruction.SW << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | addressField);
+                                        machineCode = (((int)Instruction.SW << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | offset);
                                     }
                                     else
                                     {
-                                        machineCode = (((int)Instruction.LW << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | addressField);
+                                        machineCode = (((int)Instruction.LW << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | offset);
                                     }
                                 }
                                 else
                                 {
                                     if(opcode == "jmae")
                                     {
-                                        machineCode = (((int)Instruction.JMAE << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | addressField);
+                                        machineCode = (((int)Instruction.JMAE << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | offset);
                                     }
                                     else if(opcode == "jmnae")
                                     {
-                                        machineCode = (((int)Instruction.JMNAE << 23) | (int.Parse(arg0) << 19) | (int.Parse(arg1) << 15) | addressField);
+                                        machineCode = (((int)Instruction.JMNAE << 24) | (int.Parse(arg0) << 20) | (int.Parse(arg1) << 16) | offset);
                                     }
                                     else if(opcode == "jne")
                                     {
-                                        machineCode = (((int)Instruction.JNE << 23) | addressField);
+                                        machineCode = (((int)Instruction.JNE << 24) | offset);
                                     }
                                 }
                             }

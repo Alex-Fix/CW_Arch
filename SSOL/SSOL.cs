@@ -36,6 +36,16 @@ namespace SSOL
 
 
         /// <summary>
+        /// min offset
+        /// </summary>
+        public static int MinOffset { get; } = -32768;
+
+        /// <summary>
+        /// max offset
+        /// </summary>
+        public static int MaxOffset { get; } = 32767;
+
+        /// <summary>
         /// available instructions
         /// </summary>
         public enum Instruction
@@ -102,6 +112,9 @@ namespace SSOL
 
                     for(; ; CoutOfInstructions++)
                     {
+                        if (PC >= Memory.Count())
+                            break;
+
                         var opcode = (Instruction)((Memory[PC] >> 23) & 31);
                         if(opcode == Instruction.HALT)
                         {
@@ -109,18 +122,21 @@ namespace SSOL
                             break;
                         }
 
-                        var arg0 = (Memory[PC] >> 19) & 15;
-                        var arg1 = (Memory[PC] >> 15) & 15;
+                        var arg0 = (Memory[PC] >> 20) & 15;
+                        var arg1 = (Memory[PC] >> 16) & 15;
                         var arg2 = Memory[PC] & 15;
                         var offset = 0; 
-                        if((Memory[PC] & 0x4000) == 0x4000)
+                        if((Memory[PC] & 0x8000) == 0x8000)
                         {
-                            offset = -32768 | (Memory[PC] & 0x7FFF);
+                            offset = -65536 | (Memory[PC] & 0xFFFF);
                         }
                         else
                         {
-                            offset = Memory[PC] & 0x7FFF;
+                            offset = Memory[PC] & 0xFFFF;
                         }
+
+                        if (offset > MaxOffset || offset < MinOffset)
+                            throw new Exception("offset is bigger than MaxOffset or less than MinOffset");
 
                         switch (opcode)
                         {
@@ -133,14 +149,20 @@ namespace SSOL
                                 PC++;
                                 break;
                             case Instruction.LW:
+                                if (arg0 + offset < 0 || arg0 + offset >= Memory.Count())
+                                    throw new Exception("argument out of range");
                                 Registers[arg1] = Memory[arg0 + offset];
                                 PC++;
                                 break;
                             case Instruction.SW:
+                                if (arg0 + offset < 0 || arg0 + offset >= Memory.Count())
+                                    throw new Exception("argument out of range");
                                 Memory[arg0 + offset] = Registers[arg1];
                                 PC++;
                                 break;
                             case Instruction.BEQ:
+                                if (PC + offset + 1 < 0 || PC + offset + 1 >= Memory.Count())
+                                    throw new Exception("argument out of range");
                                 PC = Registers[arg0] == Registers[arg1] ? PC + offset + 1: PC + 1;
                                 break;
                             case Instruction.JARL:
@@ -195,10 +217,23 @@ namespace SSOL
                                 PC++;
                                 break;
                             case Instruction.JMAE:
-                                PC = Registers[arg0] >= Registers[arg1] ? PC + offset + 1 : PC + 1;
+                                if (PC + offset + 1 < 0 || PC + offset + 1 >= Memory.Count())
+                                    throw new Exception("argument out of range");
+                                {
+                                    Int64 temp1 = Registers[arg0] & 0xFFFFFFFF;
+                                    Int64 temp2 = Registers[arg1] & 0xFFFFFFFF;
+                                    PC = temp1 >= temp2 ? PC + offset + 1 : PC + 1;
+                                }
                                 break;
                             case Instruction.JMNAE:
-                                PC = Registers[arg0] < Registers[arg1] ? PC + offset + 1: PC + 1;
+                                if (PC + offset + 1 < 0 || PC + offset + 1 >= Memory.Count())
+                                    throw new Exception("argument out of range");
+                                {
+                                    
+                                    Int64 temp1 = Registers[arg0] & 0xFFFFFFFF;
+                                    Int64 temp2 = Registers[arg1] & 0xFFFFFFFF;
+                                    PC = temp1 < temp2 ? PC + offset + 1 : PC + 1;
+                                }
                                 break;
                             case Instruction.BSR:
                                 {
@@ -245,17 +280,19 @@ namespace SSOL
                                 PC++;
                                 break;
                             case Instruction.JNE:
+                                if (PC + offset + 1 < 0 || PC + offset + 1 >= Memory.Count())
+                                    throw new Exception("argument out of range");
                                 PC = ZeroFlag ? PC + offset + 1 : PC + 1;
                                 break;
                             case Instruction.POP:
                                 if (Stack.Count() == 0)
-                                    throw new Exception();
+                                    throw new Exception("stack is empty");
                                 Registers[1] = Stack.Pop();
                                 PC++;
                                 break;
                             case Instruction.PUSH:
                                 if (Stack.Count() == 32)
-                                    throw new Exception();
+                                    throw new Exception("the stack is full");
                                 Stack.Push(Registers[1]);
                                 PC++;
                                 break;
