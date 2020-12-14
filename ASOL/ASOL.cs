@@ -291,7 +291,7 @@ namespace ASOL
                                 }
 
                                 // max length of offset must be less then 15 bits
-                                offset = offset & 0x7FFF;
+                                offset = offset & 0xFFFF;
 
                                 if(opcode == "beq")
                                 {
