@@ -115,7 +115,7 @@ namespace SSOL
                         if (PC >= Memory.Count())
                             break;
 
-                        var opcode = (Instruction)((Memory[PC] >> 23) & 31);
+                        var opcode = (Instruction)((Memory[PC] >> 24) & 31);
                         if(opcode == Instruction.HALT)
                         {
                             PrintState(output, true);

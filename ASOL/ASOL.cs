@@ -290,7 +290,7 @@ namespace ASOL
                                     Errors.Add($"offset {offset} out of range");
                                 }
 
-                                // max length of offset must be less then 15 bits
+                                // max length of offset must be less then 16 bits
                                 offset = offset & 0xFFFF;
 
                                 if(opcode == "beq")
